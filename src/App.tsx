@@ -1,7 +1,7 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import PrettyScroll from './package/PrettyScroll';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import PrettyScroll from "./package/PrettyScroll";
 
 function App() {
   return (
