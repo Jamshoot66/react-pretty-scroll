@@ -1,0 +1,54 @@
+.test {
+	background: #F00;
+	outline: 1px solid blue;
+	color: blueviolet;
+}
+
+.mainContainer{
+	width: fit-content;
+	position: relative;
+
+}
+.contentContainer {
+	background: red;
+	width: 500px;
+	margin-right: -15px;
+
+	height: 500px;
+	overflow: hidden;
+
+	overflow-y: auto;
+}
+
+.content {
+	padding-right: 8px;
+
+}
+
+.overlay {
+	overflow: hidden;
+	width: fit-content;
+	position: relative;
+	margin-right: 2px;
+}
+
+.verticalScrollbarContainer{
+	position: absolute;
+	width: 6px;
+	background-color: rgba(0, 0, 0, 0.2);
+	height: 100%;
+	top: 0;
+	right: 0;
+}
+
+.verticalScrollbar{
+	position: absolute;
+	width: 100%;
+	height: 15%;
+	min-height: 30px;
+	max-height: 100px;
+	background: transparentize(white, 0.2);
+	left: 0;
+	border-radius: 3px;
+	transition: top 0.2s ease
+}
