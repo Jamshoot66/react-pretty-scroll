@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import PrettyScroll from './package/PrettyScroll';
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
         >
           Learn React
         </a>
+        <div>
+          <PrettyScroll title="SOME TITLE" />
+        </div>
       </header>
     </div>
   );
