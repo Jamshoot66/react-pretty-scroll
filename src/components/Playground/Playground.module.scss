@@ -3,8 +3,8 @@
 	text-align: left;
 
 	&_horizontal {
-		height: 500px;
-		width: auto;
+		height: 485px;
+		width: fit-content;
 		overflow-x: visible;
 		display: flex;
 	}

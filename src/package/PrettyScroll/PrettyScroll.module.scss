@@ -3,20 +3,17 @@
 	position: relative;
 
 }
+
 .contentContainer {
 	background: red;
-	width: 500px;
-	margin-right: -15px;
-
-	height: 500px;
-	overflow: hidden;
+	overflow: auto;
 
 	&_vertical {
-		overflow-y: auto;
+		margin-right: -15px;
 	}
 
 	&_horizontal {
-		overflow-x: auto;
+		margin-bottom: -15px;
 	}
 }
 
@@ -49,6 +46,27 @@
 	max-height: 100px;
 	background: transparentize(white, 0.2);
 	left: 0;
+	border-radius: 3px;
+	transition: top 0.2s ease
+}
+
+.horizontalScrollbarContainer{
+	position: absolute;
+	height: 6px;
+	background-color: rgba(0, 0, 0, 0.2);
+	width: 100%;
+	bottom: 0;
+	left: 0;
+}
+
+.horizontalScrollbar{
+	position: absolute;
+	width: 15%;
+	height: 100%;
+	min-height: 30px;
+	max-height: 100px;
+	background: transparentize(white, 0.2);
+	top: 0;
 	border-radius: 3px;
 	transition: top 0.2s ease
 }

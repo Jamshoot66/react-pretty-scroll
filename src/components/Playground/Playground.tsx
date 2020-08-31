@@ -32,9 +32,11 @@ class Playground extends React.Component<props> {
   render() {
     return (
       <React.Fragment>
-        <PrettyScroll isDraggable>{this.content}</PrettyScroll>
+        <PrettyScroll isDraggable width="500px" height="500px">
+          {this.content}
+        </PrettyScroll>
         <hr />
-        <PrettyScroll isDraggable isHorizontal>
+        <PrettyScroll isDraggable isHorizontal width="500px" height="500px">
           {this.contentHorizontal}
         </PrettyScroll>
       </React.Fragment>

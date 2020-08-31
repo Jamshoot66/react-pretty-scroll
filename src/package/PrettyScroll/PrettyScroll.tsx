@@ -8,11 +8,14 @@ interface Props {
   isVertical?: boolean | undefined | null;
   isDraggable?: boolean;
   dragThreshold?: number;
+  width?: number | string;
+  height?: number | string;
 }
 
 interface State {
   height: number;
   scrollTop: number;
+  scrollLeft: number;
   scrollType: ScrollType;
 }
 
@@ -25,6 +28,8 @@ class PrettyScroll extends React.Component<Props, State> {
     isVertical: null,
     isDraggable: false,
     dragThreshold: 10,
+    width: "100%",
+    height: "100%",
   };
 
   constructor(props: Props) {
@@ -33,6 +38,7 @@ class PrettyScroll extends React.Component<Props, State> {
     this.state = {
       height: 0,
       scrollTop: 0,
+      scrollLeft: 0,
       scrollType: this.detectScrolls(),
     };
 
@@ -58,10 +64,12 @@ class PrettyScroll extends React.Component<Props, State> {
     const container = this.contentRef.current!;
     this.setState({
       scrollTop: container.scrollTop / this.maxScrollTop,
+      scrollLeft: container.scrollLeft / this.maxScrollLeft,
     });
   };
 
   maxScrollTop: number = 0;
+  maxScrollLeft: number = 0;
 
   prepareToDrag: boolean = false;
   dragStart: Vector2 = {
@@ -112,6 +120,8 @@ class PrettyScroll extends React.Component<Props, State> {
     const content = container.children[0] as HTMLElement;
 
     this.maxScrollTop = content?.offsetHeight - container?.clientHeight;
+    this.maxScrollLeft = content?.offsetWidth - container?.clientWidth;
+
     container.addEventListener("scroll", this.handleScroll);
     container.addEventListener("mousedown", this.handleMouseDown);
     container.addEventListener("mouseup", this.handleMouseUp);
@@ -135,8 +145,8 @@ class PrettyScroll extends React.Component<Props, State> {
   componentDidUpdate() {}
 
   render() {
-    const { scrollTop, scrollType } = this.state;
-    const { isDraggable } = this.props;
+    const { scrollTop, scrollLeft, scrollType } = this.state;
+    const { isDraggable, width, height } = this.props;
     const scrollbarHeight = 100;
     const container = this.contentRef.current;
     const maxScroll = container
@@ -147,13 +157,17 @@ class PrettyScroll extends React.Component<Props, State> {
     if (scrollType === ScrollType.horizontal)
       contentStyles.push(styles.contentContainer_horizontal);
     if (scrollType === ScrollType.vertical)
-      contentStyles.push(styles.contentContainer_vertcontentContainer_vertical);
+      contentStyles.push(styles.contentContainer_vertical);
     if (isDraggable) contentStyles.push(styles.unselectable);
 
     return (
       <div className={styles.mainContainer}>
         <div className={styles.overlay}>
-          <div ref={this.contentRef} className={contentStyles.join(" ")}>
+          <div
+            ref={this.contentRef}
+            className={contentStyles.join(" ")}
+            style={{ width, height }}
+          >
             {this.props.children}
           </div>
         </div>
@@ -165,6 +179,18 @@ class PrettyScroll extends React.Component<Props, State> {
               style={{
                 top: `${scrollTop * maxScroll}px`,
                 height: `${scrollbarHeight}px`,
+              }}
+            />
+          </div>
+        )}
+
+        {scrollType === ScrollType.horizontal && (
+          <div className={styles.horizontalScrollbarContainer}>
+            <div
+              className={styles.horizontalScrollbar}
+              style={{
+                left: `${scrollLeft * maxScroll}px`,
+                width: `${scrollbarHeight}px`,
               }}
             />
           </div>
