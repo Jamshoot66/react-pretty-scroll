@@ -1,22 +1,30 @@
 import React from "react";
 import styles from "./PrettyScroll.module.scss";
 
-interface props {
-  children: React.ReactNode
+interface Props {
+  children: React.ReactNode;
+  isHorizontal?: boolean;
+  isVertical?: boolean;
 }
 
-interface state {
+interface State {
   height: number;
   scrollTop: number;
 }
 
-class PrettyScroll extends React.Component<props, state> {
+class PrettyScroll extends React.Component<Props, State> {
   private contentRef = React.createRef<HTMLDivElement>();
 
   state = {
     height: 0,
     scrollTop: 0,
   };
+  
+  static defaultProps: Props = {
+    children: <div />,
+    isHorizontal: false,
+    isVertical: true,
+  }
 
   handleScroll = () => {
     const container = this.contentRef.current!;
@@ -91,6 +99,10 @@ class PrettyScroll extends React.Component<props, state> {
   componentWillUnmount() {
     const container = this.contentRef.current!;
     container.removeEventListener("scroll", this.handleScroll);
+    container.removeEventListener("mousedown", this.handleMouseDown);
+    container.removeEventListener("mouseup", this.handleMouseUp);
+    container.removeEventListener("mouseout", this.handleMouseUp);
+    container.removeEventListener("mousemove", this.handleMouseMove);
   }
 
   componentDidUpdate() {}
