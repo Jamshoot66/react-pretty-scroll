@@ -11,7 +11,13 @@
 	height: 500px;
 	overflow: hidden;
 
-	overflow-y: auto;
+	&_vertical {
+		overflow-y: auto;
+	}
+
+	&_horizontal {
+		overflow-x: auto;
+	}
 }
 
 .content {

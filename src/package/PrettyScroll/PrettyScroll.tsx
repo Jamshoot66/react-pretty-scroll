@@ -109,6 +109,7 @@ class PrettyScroll extends React.Component<Props, State> {
 
   render() {
     const { scrollTop } = this.state;
+    const { isHorizontal, isVertical } = this.props;
     const scrollbarHeight = 100;
     const container = this.contentRef.current;
     const maxScroll = container
@@ -118,11 +119,16 @@ class PrettyScroll extends React.Component<Props, State> {
     console.log("scrollTop ", scrollTop);
     console.log("maxScroll ", maxScroll);
     console.log("scrollTop * maxScroll ", scrollTop * maxScroll);
+    
+    const contentStyles = [styles.contentContainer];
+    if (isHorizontal) contentStyles.push(styles.contentContainer_horizontal);
+    if (isVertical) contentStyles.push(styles.contentContainer_vertical);
+    
 
     return (
       <div className={styles.mainContainer}>
         <div className={styles.overlay}>
-          <div ref={this.contentRef} className={styles.contentContainer}>
+          <div ref={this.contentRef} className={contentStyles.join(' ')}>
             {this.props.children}
           </div>
         </div>
