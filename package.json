@@ -1,7 +1,12 @@
 {
   "name": "react-pretty-scroll",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.5.0",
+  "main": "esm/index.js",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jamshoot66/react-pretty-scroll.git"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -16,14 +21,18 @@
     "typescript": "~3.7.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "build:package": "tsc --project tsconfig.package.json",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
   },
+  "files": [
+    "/esm/**/*"
+  ],
   "browserslist": {
     "production": [
       ">0.2%",
@@ -35,5 +44,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint-plugin-import": "^2.22.0",
+    "node-sass": "^4.14.1",
+    "prettier": "^2.1.1",
+    "react-app-rewire-alias": "^0.1.6",
+    "react-app-rewired": "^2.1.6"
   }
 }

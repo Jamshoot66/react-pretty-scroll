@@ -1,0 +1,23 @@
+.content {
+	padding: 20px;
+	text-align: left;
+
+	&_horizontal {
+		height: 485px;
+		width: fit-content;
+		overflow-x: visible;
+		display: flex;
+	}
+}
+
+.item {
+	height: 300px;
+	width: 350px;
+	background: aqua;
+	box-sizing: border-box;
+	border: 1px solid black;
+	margin: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

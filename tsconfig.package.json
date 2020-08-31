@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "declaration": true,
+    "outDir": "./esm",
+    "strict": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["src/package"],
+  "exclude": ["node_modules"]
+}
