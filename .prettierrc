@@ -5,7 +5,7 @@
   "singleQuote": false,
   "trailingComma": "es5",
   "jsxBracketSameLine": false,
-  "parser": "flow",
+  "parser": "typescript",
   "semi": true,
   "editor.formatOnSave": true
 }
