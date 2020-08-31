@@ -1,11 +1,13 @@
 import React from "react";
 import styles from "./PrettyScroll.module.scss";
+import { Vector2 } from "utils/types";
 
 interface Props {
   children: React.ReactNode;
   isHorizontal?: boolean;
   isVertical?: boolean;
   isDraggable?: boolean;
+  dragThreshold?: number;
 }
 
 interface State {
@@ -26,6 +28,7 @@ class PrettyScroll extends React.Component<Props, State> {
     isHorizontal: false,
     isVertical: true,
     isDraggable: false,
+    dragThreshold: 10,
   };
 
   handleScroll = () => {
@@ -36,14 +39,13 @@ class PrettyScroll extends React.Component<Props, State> {
   };
 
   maxScrollTop: number = 0;
-  threshold: number = 10;
 
   prepareToDrag: boolean = false;
-  dragStart = {
+  dragStart: Vector2 = {
     x: 0,
     y: 0,
   };
-  dragDelta = {
+  dragDelta: Vector2 = {
     x: 0,
     y: 0,
   };
@@ -74,6 +76,7 @@ class PrettyScroll extends React.Component<Props, State> {
         container.scrollLeft + this.dragDelta.x,
         container.scrollTop + this.dragDelta.y
       );
+
       this.dragStart = {
         x: e.clientX,
         y: e.clientY,
