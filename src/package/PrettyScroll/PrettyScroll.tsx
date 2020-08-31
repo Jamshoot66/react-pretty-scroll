@@ -1,11 +1,11 @@
 import React from "react";
 import styles from "./PrettyScroll.module.scss";
-import { Vector2 } from "utils/types";
+import { Vector2, ScrollType } from "utils/types";
 
 interface Props {
   children: React.ReactNode;
-  isHorizontal?: boolean;
-  isVertical?: boolean;
+  isHorizontal?: boolean | undefined | null;
+  isVertical?: boolean | undefined | null;
   isDraggable?: boolean;
   dragThreshold?: number;
 }
@@ -13,22 +13,45 @@ interface Props {
 interface State {
   height: number;
   scrollTop: number;
+  scrollType: ScrollType;
 }
 
 class PrettyScroll extends React.Component<Props, State> {
   private contentRef = React.createRef<HTMLDivElement>();
 
-  state = {
-    height: 0,
-    scrollTop: 0,
-  };
-
   static defaultProps: Props = {
     children: <div />,
-    isHorizontal: false,
-    isVertical: true,
+    isHorizontal: null,
+    isVertical: null,
     isDraggable: false,
     dragThreshold: 10,
+  };
+
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {
+      height: 0,
+      scrollTop: 0,
+      scrollType: this.detectScrolls(),
+    };
+
+    const tst = this.detectScrolls();
+    console.log("this.detectScrolls() ", tst);
+    console.log("tst ", tst === ScrollType.vertical);
+    console.log("tst ", tst === ScrollType.both);
+  }
+
+  detectScrolls = (): ScrollType => {
+    //FIXME: implement scroll bars detection via content size;
+    const { isVertical, isHorizontal } = this.props;
+
+    if (isVertical && isHorizontal) return ScrollType.both;
+    if (isHorizontal) return ScrollType.horizontal;
+    if (isVertical) return ScrollType.vertical;
+
+    //default
+    return ScrollType.vertical;
   };
 
   handleScroll = () => {
@@ -112,8 +135,8 @@ class PrettyScroll extends React.Component<Props, State> {
   componentDidUpdate() {}
 
   render() {
-    const { scrollTop } = this.state;
-    const { isHorizontal, isVertical, isDraggable } = this.props;
+    const { scrollTop, scrollType } = this.state;
+    const { isDraggable } = this.props;
     const scrollbarHeight = 100;
     const container = this.contentRef.current;
     const maxScroll = container
@@ -121,8 +144,10 @@ class PrettyScroll extends React.Component<Props, State> {
       : 100;
 
     const contentStyles = [styles.contentContainer];
-    if (isHorizontal) contentStyles.push(styles.contentContainer_horizontal);
-    if (isVertical) contentStyles.push(styles.contentContainer_vertical);
+    if (scrollType === ScrollType.horizontal)
+      contentStyles.push(styles.contentContainer_horizontal);
+    if (scrollType === ScrollType.vertical)
+      contentStyles.push(styles.contentContainer_vertcontentContainer_vertical);
     if (isDraggable) contentStyles.push(styles.unselectable);
 
     return (
@@ -132,15 +157,18 @@ class PrettyScroll extends React.Component<Props, State> {
             {this.props.children}
           </div>
         </div>
-        <div className={styles.verticalScrollbarContainer}>
-          <div
-            className={styles.verticalScrollbar}
-            style={{
-              top: `${scrollTop * maxScroll}px`,
-              height: `${scrollbarHeight}px`,
-            }}
-          />
-        </div>
+
+        {scrollType === ScrollType.vertical && (
+          <div className={styles.verticalScrollbarContainer}>
+            <div
+              className={styles.verticalScrollbar}
+              style={{
+                top: `${scrollTop * maxScroll}px`,
+                height: `${scrollbarHeight}px`,
+              }}
+            />
+          </div>
+        )}
       </div>
     );
   }
