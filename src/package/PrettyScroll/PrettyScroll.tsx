@@ -120,10 +120,6 @@ class PrettyScroll extends React.Component<Props, State> {
       ? container.clientHeight - scrollbarHeight
       : 100;
 
-    console.log("scrollTop ", scrollTop);
-    console.log("maxScroll ", maxScroll);
-    console.log("scrollTop * maxScroll ", scrollTop * maxScroll);
-
     const contentStyles = [styles.contentContainer];
     if (isHorizontal) contentStyles.push(styles.contentContainer_horizontal);
     if (isVertical) contentStyles.push(styles.contentContainer_vertical);
