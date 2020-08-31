@@ -17,8 +17,8 @@
     "typescript": "~3.7.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
     "build:package": "tsc --project tsconfig.package.json",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -44,6 +44,8 @@
   "devDependencies": {
     "eslint-plugin-import": "^2.22.0",
     "node-sass": "^4.14.1",
-    "prettier": "^2.1.1"
+    "prettier": "^2.1.1",
+    "react-app-rewire-alias": "^0.1.6",
+    "react-app-rewired": "^2.1.6"
   }
 }
