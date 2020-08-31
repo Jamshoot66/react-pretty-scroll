@@ -21,7 +21,11 @@ class Playground extends React.Component<props> {
     super(props);
     this.content = <div className={style.content}>{this.prepareContent()}</div>;
     this.contentHorizontal = (
-      <div className={style.content_horizontal}>{this.prepareContent()}</div>
+      <div className={style.content_horizontal}>
+        <div className={style.item}>item</div>
+        <div className={style.item}>item</div>
+        <div className={style.item}>item</div>
+      </div>
     );
   }
 
@@ -30,7 +34,9 @@ class Playground extends React.Component<props> {
       <React.Fragment>
         <PrettyScroll isDraggable>{this.content}</PrettyScroll>
         <hr />
-        <PrettyScroll>{this.content}</PrettyScroll>
+        <PrettyScroll isDraggable isHorizontal>
+          {this.contentHorizontal}
+        </PrettyScroll>
       </React.Fragment>
     );
   }
