@@ -5,6 +5,7 @@ interface Props {
   children: React.ReactNode;
   isHorizontal?: boolean;
   isVertical?: boolean;
+  isDraggable?: boolean;
 }
 
 interface State {
@@ -19,12 +20,13 @@ class PrettyScroll extends React.Component<Props, State> {
     height: 0,
     scrollTop: 0,
   };
-  
+
   static defaultProps: Props = {
     children: <div />,
     isHorizontal: false,
     isVertical: true,
-  }
+    isDraggable: false,
+  };
 
   handleScroll = () => {
     const container = this.contentRef.current!;
@@ -35,7 +37,7 @@ class PrettyScroll extends React.Component<Props, State> {
 
   maxScrollTop: number = 0;
   threshold: number = 10;
-  canDrag: boolean = false;
+
   prepareToDrag: boolean = false;
   dragStart = {
     x: 0,
@@ -47,7 +49,8 @@ class PrettyScroll extends React.Component<Props, State> {
   };
 
   handleMouseDown = (e: MouseEvent) => {
-    console.log("handleMouseDown");
+    const { isDraggable } = this.props;
+    if (!isDraggable) return;
     this.prepareToDrag = true;
     this.dragStart = {
       x: e.clientX,
@@ -56,13 +59,11 @@ class PrettyScroll extends React.Component<Props, State> {
   };
 
   handleMouseUp = (e: MouseEvent) => {
-    console.log("handleMouseUp");
     this.prepareToDrag = false;
   };
 
   handleMouseMove = (e: MouseEvent) => {
     if (this.prepareToDrag) {
-      // console.log("handleMouseMove");
       const container = this.contentRef.current!;
       this.dragDelta = {
         x: this.dragStart.x - e.clientX,
@@ -119,16 +120,15 @@ class PrettyScroll extends React.Component<Props, State> {
     console.log("scrollTop ", scrollTop);
     console.log("maxScroll ", maxScroll);
     console.log("scrollTop * maxScroll ", scrollTop * maxScroll);
-    
+
     const contentStyles = [styles.contentContainer];
     if (isHorizontal) contentStyles.push(styles.contentContainer_horizontal);
     if (isVertical) contentStyles.push(styles.contentContainer_vertical);
-    
 
     return (
       <div className={styles.mainContainer}>
         <div className={styles.overlay}>
-          <div ref={this.contentRef} className={contentStyles.join(' ')}>
+          <div ref={this.contentRef} className={contentStyles.join(" ")}>
             {this.props.children}
           </div>
         </div>

@@ -1,4 +1,10 @@
 .content {
 	padding: 20px;
 	text-align: left;
+
+	&_horizontal {
+		max-height: 500px;
+		width: auto;
+		overflow-x: visible;
+	}
 }
