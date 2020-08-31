@@ -52,3 +52,7 @@
 	border-radius: 3px;
 	transition: top 0.2s ease
 }
+
+.unselectable {
+	user-select: none;
+}

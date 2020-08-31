@@ -113,7 +113,7 @@ class PrettyScroll extends React.Component<Props, State> {
 
   render() {
     const { scrollTop } = this.state;
-    const { isHorizontal, isVertical } = this.props;
+    const { isHorizontal, isVertical, isDraggable } = this.props;
     const scrollbarHeight = 100;
     const container = this.contentRef.current;
     const maxScroll = container
@@ -127,6 +127,7 @@ class PrettyScroll extends React.Component<Props, State> {
     const contentStyles = [styles.contentContainer];
     if (isHorizontal) contentStyles.push(styles.contentContainer_horizontal);
     if (isVertical) contentStyles.push(styles.contentContainer_vertical);
+    if (isDraggable) contentStyles.push(styles.unselectable);
 
     return (
       <div className={styles.mainContainer}>
