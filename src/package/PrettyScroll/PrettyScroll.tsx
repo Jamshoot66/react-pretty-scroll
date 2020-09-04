@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./PrettyScroll.module.scss";
-import { Vector2, ScrollType } from "utils/types";
+import { Vector2, ScrollType } from "../../utils/types";
 
 interface Props {
   children: React.ReactNode;
@@ -21,6 +21,8 @@ interface State {
 
 class PrettyScroll extends React.Component<Props, State> {
   private contentRef = React.createRef<HTMLDivElement>();
+  private verticalBarRef = React.createRef<HTMLDivElement>();
+  private horizontalBarRef = React.createRef<HTMLDivElement>();
 
   static defaultProps: Props = {
     children: <div />,
@@ -41,11 +43,6 @@ class PrettyScroll extends React.Component<Props, State> {
       scrollLeft: 0,
       scrollType: this.detectScrolls(),
     };
-
-    const tst = this.detectScrolls();
-    console.log("this.detectScrolls() ", tst);
-    console.log("tst ", tst === ScrollType.vertical);
-    console.log("tst ", tst === ScrollType.both);
   }
 
   detectScrolls = (): ScrollType => {
@@ -173,7 +170,10 @@ class PrettyScroll extends React.Component<Props, State> {
         </div>
 
         {scrollType === ScrollType.vertical && (
-          <div className={styles.verticalScrollbarContainer}>
+          <div
+            className={styles.verticalScrollbarContainer}
+            ref={this.verticalBarRef}
+          >
             <div
               className={styles.verticalScrollbar}
               style={{
@@ -185,7 +185,10 @@ class PrettyScroll extends React.Component<Props, State> {
         )}
 
         {scrollType === ScrollType.horizontal && (
-          <div className={styles.horizontalScrollbarContainer}>
+          <div
+            className={styles.horizontalScrollbarContainer}
+            ref={this.horizontalBarRef}
+          >
             <div
               className={styles.horizontalScrollbar}
               style={{
